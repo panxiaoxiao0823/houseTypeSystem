@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layuimini-iframe版 v2 - 基于Layui的后台管理系统前端模板</title>
+    <title>户型图管理系统</title>
     <meta name="keywords" content="layuimini,layui,layui模板,layui后台,后台模板,admin,admin模板,layui mini">
     <meta name="description" content="layuimini基于layui的轻量级前端后台管理框架，最简洁、易用的后台框架模板，面向所有层次的前后端程序,只需提供一个接口就直接初始化整个框架，无需复杂操作。">
     <meta name="renderer" content="webkit">
@@ -48,37 +48,27 @@
                 </li>
             </ul>
 
-            <ul class="layui-nav layui-layout-right">
+            <ul class="layui-nav layui-layout-right" style="padding-right:10px !important;">
 
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;" data-refresh="刷新"><i class="fa fa-refresh"></i></a>
-                </li>
-                <li class="layui-nav-item" lay-unselect>
-                    <a href="javascript:;" data-clear="清理" class="layuimini-clear"><i class="fa fa-trash-o"></i></a>
                 </li>
                 <li class="layui-nav-item mobile layui-hide-xs" lay-unselect>
                     <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
                 </li>
                 <li class="layui-nav-item layuimini-setting">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;">
+                        <span class="username"></span>
+                    </a>
                     <dl class="layui-nav-child">
-                        <dd>
-                            <a href="javascript:;" layuimini-content-href="page/user-setting.html" data-title="基本资料" data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" layuimini-content-href="page/user-password.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
-                        </dd>
-                        <dd>
-                            <hr>
-                        </dd>
                         <dd>
                             <a href="javascript:;" class="login-out">退出登录</a>
                         </dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layuimini-select-bgcolor" lay-unselect>
+                <!-- <li class="layui-nav-item layuimini-select-bgcolor" lay-unselect>
                     <a href="javascript:;" data-bgcolor="配色方案"><i class="fa fa-ellipsis-v"></i></a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
@@ -130,6 +120,14 @@
 <script src="lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script>
+    var loginInfo = sessionStorage.getItem('loginInfo');
+    if(loginInfo){
+        // 已经登录
+        loginInfo = JSON.parse(loginInfo);
+    }else{
+        // 尚未登录，跳转登录界面
+        window.location = 'page/login.html';
+    }
     layui.use(['jquery', 'layer', 'miniAdmin','miniTongji'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
@@ -138,7 +136,6 @@
 
         var options = {
             iniUrl: "api/init.json",    // 初始化接口
-            clearUrl: "api/clear.json", // 缓存清理接口
             urlHashLocation: true,      // 是否打开hash定位
             bgColorDefault: false,      // 主题默认配置
             multiModule: true,          // 是否开启多模块
@@ -148,6 +145,9 @@
             maxTabNum: 20,              // 最大的tab打开数量
         };
         miniAdmin.render(options);
+
+        // 填入用户名
+        $('.username').text(loginInfo.username);
 
         // 百度统计代码，只统计指定域名
         miniTongji.render({
@@ -161,7 +161,9 @@
 
         $('.login-out').on("click", function () {
             layer.msg('退出登录成功', function () {
-                window.location = 'page/login-3.html';
+                // 删除sessionStorage
+                sessionStorage.removeItem('loginInfo');
+                window.location = 'page/login.html';
             });
         });
     });
