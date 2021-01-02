@@ -1,11 +1,11 @@
 {
   "homeInfo": {
-    "title": "首页",
-    "href": "page/welcome-1.html?t=1"
+    "title": "完工小区",
+    "href": "page/table.html?type=finishNeighbourhood"
   },
   "logoInfo": {
-    "title": "LAYUI MINI",
-    "image": "images/logo.png",
+    "title": "户型图管理系统",
+    "image": "../images/logo.png",
     "href": ""
   },
   "menuInfo": [
@@ -19,6 +19,18 @@
           "title": "完工小区",
           "href": "page/table.html?type=finishNeighbourhood",
           "icon": "fa fa-home",
+          "target": "_self"
+        },
+        {
+          "title": "未装修小区",
+          "href": "page/table.html?type=notNeighbourhood",
+          "icon": "fa fa-window-maximize",
+          "target": "_self"
+        },
+        {
+          "title": "典型户型",
+          "href": "page/table.html?type=typicalHouse",
+          "icon": "fa fa-snowflake-o",
           "target": "_self"
         }
       ]

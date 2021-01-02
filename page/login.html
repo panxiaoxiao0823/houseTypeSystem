@@ -24,7 +24,8 @@
         }
 
         body {
-            background: #000;
+            /* background: rgba(0,0,0,.9); */
+            background:url(../images//background.svg) no-repeat 50%;
         }
 
         body:after {
@@ -67,7 +68,7 @@
         }
 
         .logo-title h1 {
-            color: #1E9FFF;
+            color: #eccf7c;
             font-size: 25px;
             font-weight: bold;
         }
@@ -115,6 +116,13 @@
             height: 36px;
             width: 100%;
         }
+
+        .my-layui-register {
+            text-align: right;
+            font-size: 12px;
+            color: #333;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -129,26 +137,19 @@
                     <div class="layui-form-item">
                         <label class="layui-icon layui-icon-username" for="username"></label>
                         <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱"
-                            autocomplete="off" class="layui-input" value="admin">
+                            autocomplete="off" class="layui-input" value="">
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-icon layui-icon-password" for="password"></label>
                         <input type="password" name="password" lay-verify="required|password" placeholder="密码"
-                            autocomplete="off" class="layui-input" value="123456">
-                    </div>
-                    <!-- <div class="layui-form-item">
-                    <label class="layui-icon layui-icon-vercode" for="captcha"></label>
-                    <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
-                    <div class="captcha-img">
-                        <img id="captchaPic" src="../images/captcha.jpg">
-                    </div>
-                </div> -->
-                    <div class="layui-form-item">
-                        <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
+                            autocomplete="off" class="layui-input" value="">
                     </div>
                     <div class="layui-form-item">
-                        <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
+                        <button class="layui-btn-warm layui-btn layui-btn-fluid" lay-submit=""
                             lay-filter="login">登 入</button>
+                    </div>
+                    <div class="layui-form-item">
+                        <p class="my-layui-register">注册</p>
                     </div>
                 </form>
             </div>
@@ -157,10 +158,16 @@
     <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
     <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
     <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+    <script src="../js/config.js"></script>
     <script>
         layui.use(['form'], function () {
             var form = layui.form,
                 layer = layui.layer;
+
+            // 监听注册按钮点击事件
+            $('.my-layui-register').on('click', function () {
+                window.location = 'register.html';
+            })
 
             // 登录过期的时候，跳出ifram框架
             if (top.location != self.location) top.location = self.location;
@@ -168,8 +175,8 @@
             // 粒子线条背景
             $(document).ready(function () {
                 $('.layui-container').particleground({
-                    dotColor: '#7ec7fd',
-                    lineColor: '#7ec7fd'
+                    dotColor: '#eccf7c',
+                    lineColor: '#eccf7c'
                 });
             });
 
@@ -177,26 +184,53 @@
             form.on('submit(login)', function (data) {
                 data = data.field;
                 if (data.username == '') {
-                    layer.msg('用户名不能为空');
+                    layer.msg('用户名不能为空', {
+                        icon: 5,
+                        time: 1500
+                    });
                     return false;
                 }
                 if (data.password == '') {
-                    layer.msg('密码不能为空');
-                    return false;
-                }
-                if (data.captcha == '') {
-                    layer.msg('验证码不能为空');
+                    layer.msg('密码不能为空', {
+                        icon: 5,
+                        time: 1500
+                    });
                     return false;
                 }
                 // 请求登录接口
-                layer.msg('登录成功', function () {
-                    let loginInfo = {
-                        username: "张艺兴",
-                        userid: "56"
-                    };
-                    sessionStorage.setItem('loginInfo', JSON.stringify(loginInfo));
-                    window.location = '../index.html';
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + '/login',
+                    data: {
+                        userName: data.username,
+                        password: data.password
+                    },
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code == 0) {
+                            layer.msg(res.message, {
+                                icon: 6,
+                                time: 1500
+                            }, function () {
+                                sessionStorage.setItem('loginInfo', JSON.stringify(
+                                    res.data));
+                                window.location = '../index.html';
+                            });
+                        } else {
+                            layer.msg(res.message, {
+                                icon: 5,
+                                time: 1500
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        layer.msg(err.toString(), {
+                            icon: 5,
+                            time: 1500
+                        });
+                    }
                 });
+
                 return false;
             });
         });

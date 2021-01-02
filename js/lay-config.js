@@ -6,6 +6,7 @@
  */
 
 window.rootPath = (function (src) {
+    console.log(document.scripts,'document.scripts')
     src = document.scripts[document.scripts.length - 1].src;
     return src.substring(0, src.lastIndexOf("/") + 1);
 })();

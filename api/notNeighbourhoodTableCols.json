@@ -1,0 +1,85 @@
+[{
+        "type": "checkbox",
+        "width": 50,
+        "fixed": "left"
+    },
+    {
+        "field": "id",
+        "width": 80,
+        "title": "序号",
+        "sort": true,
+        "align": "center",
+        "fixed": "left"
+    },
+    {
+        "field": "neighbourhoodName",
+        "width": 120,
+        "title": "小区名称",
+        "align": "center",
+        "fixed": "left"
+    },
+    {
+        "field": "neighbourhoodAdress",
+        "width": 120,
+        "title": "小区地址",
+        "align": "center"
+    },
+    {
+        "field": "operatePerson",
+        "width": 120,
+        "title": "录入人",
+        "align": "center"
+    },
+    {
+        "field": "createdAt",
+        "width": 120,
+        "title": "录入日期",
+        "sort": true,
+        "align": "center"
+    },
+    {
+        "field": "finishDate",
+        "width": 120,
+        "title": "拿钥匙时间",
+        "sort": true,
+        "align": "center"
+    },
+    {
+        "field": "designer",
+        "width": 120,
+        "title": "设计师",
+        "align": "center"
+    },
+    {
+        "field": "area",
+        "width": 120,
+        "title": "面积",
+        "sort": true,
+        "align": "center"
+    },
+    {
+        "field": "houseType",
+        "width": 120,
+        "title": "户型结构",
+        "align": "center"
+    },
+    {
+        "field": "designIdea",
+        "width": 120,
+        "title": "设计意见",
+        "align": "center"
+    },
+    {
+        "field": "remark",
+        "title": "备注",
+        "minWidth": 150,
+        "align": "center"
+    },
+    {
+        "title": "操作",
+        "minWidth": 150,
+        "toolbar": "#currentTableBar",
+        "align": "center",
+        "fixed": "right"
+    }
+]

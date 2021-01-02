@@ -1,0 +1,62 @@
+[{
+        "type": "checkbox",
+        "width": 50
+    },
+    {
+        "field": "id",
+        "width": 80,
+        "title": "序号",
+        "sort": true,
+        "align": "center"
+    },
+    {
+        "field": "operatePerson",
+        "width": 120,
+        "title": "录入人",
+        "align": "center"
+    },
+    {
+        "field": "createdAt",
+        "width": 120,
+        "title": "录入日期",
+        "sort": true,
+        "align": "center"
+    },
+    {
+        "field": "area",
+        "width": 120,
+        "title": "面积",
+        "sort": true,
+        "align": "center"
+    },
+    {
+        "field": "houseType",
+        "width": 120,
+        "title": "户型结构",
+        "align": "center"
+    },
+    {
+        "field": "houseFeature",
+        "width": 120,
+        "title": "户型特点",
+        "align": "center"
+    },
+    {
+        "field": "decorationSuggestions",
+        "width": 120,
+        "title": "装修建议",
+        "align": "center"
+    },
+    {
+        "field": "remark",
+        "title": "备注",
+        "minWidth": 150,
+        "align": "center"
+    },
+    {
+        "title": "操作",
+        "minWidth": 150,
+        "toolbar": "#currentTableBar",
+        "align": "center"
+    }
+]
